@@ -1,5 +1,6 @@
 import { CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
-import { V3, U, mobile, reduce, anim, scene, camera, composer, labelRenderer, resize } from './core.js';
+import { V3, U, mobile, reduce, anim, scene, camera, labelRenderer, resize, render, adapt } from './core.js';
+import { mergeStatic } from './optimize.js';
 import { DISTRICTS, BUILDERS, CORE_VIEW, radial, getPowerLine } from './landmarks.js';
 import { buildCircus } from './circus.js';
 import { petalCenter, buildSky, buildSkyline, buildTraffic, buildLanterns, buildPetals } from './atmosphere.js';
@@ -48,6 +49,7 @@ export function startCity(tour, onFirstFrame) {
   buildTraffic();
   buildLanterns();
   buildPetals();
+  mergeStatic(scene);
 
   const tags = DISTRICTS.map(d => {
     const el = document.createElement('div');
@@ -105,7 +107,8 @@ export function startCity(tour, onFirstFrame) {
     U.uTime.value = time;
     anim.forEach(f => f(time, step));
     updateCamera(dt);
-    composer.render();
+    render();
+    adapt(dt);
     labelRenderer.render(scene, camera);
     if (first) { first = false; onFirstFrame(); }
     requestAnimationFrame(frame);

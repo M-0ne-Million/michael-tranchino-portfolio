@@ -81,7 +81,7 @@ export function buildSkyline(powerLine) {
 
 // Sky traffic: light streaks gliding along the road grid at altitude.
 export function buildTraffic() {
-  const N = mobile ? 50 : 100, cars = [];
+  const N = mobile ? 30 : 100, cars = [];
   const mesh = new THREE.InstancedMesh(new THREE.BoxGeometry(.35, .22, 3.2), new THREE.MeshBasicMaterial(), N);
   const warm = new THREE.Color('#ffe6c8').multiplyScalar(2.4), red = ACCENT.clone().multiplyScalar(2.6);
   for (let i = 0; i < N; i++) {
@@ -104,7 +104,7 @@ export function buildTraffic() {
 
 // Paper lanterns rising slowly over the city; they shrink away near the lens.
 export function buildLanterns() {
-  const N = mobile ? 60 : 150, ls = [];
+  const N = mobile ? 40 : 150, ls = [];
   const mesh = new THREE.InstancedMesh(new THREE.SphereGeometry(.55, 10, 8), new THREE.MeshBasicMaterial({ color: LANTERN.clone().multiplyScalar(2.2) }), N);
   for (let i = 0; i < N; i++) {
     const a = rnd() * Math.PI * 2, r = 20 + Math.sqrt(rnd()) * 130;
@@ -127,7 +127,7 @@ export function buildLanterns() {
 
 // Sakura petals drifting in a volume that follows the camera's focus.
 export function buildPetals() {
-  const N = mobile ? 500 : 1100, S = 120, base = new Float32Array(N * 3), pos = new Float32Array(N * 3), vel = [];
+  const N = mobile ? 260 : 1100, S = 120, base = new Float32Array(N * 3), pos = new Float32Array(N * 3), vel = [];
   for (let i = 0; i < N; i++) {
     base.set([rnd() * S, rnd() * 70, rnd() * S], i * 3);
     vel.push(1.5 + rnd() * 2, rnd() * 6);

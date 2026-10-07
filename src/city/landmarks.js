@@ -54,6 +54,7 @@ function buildCore(d) {
     const t = new THREE.Mesh(new THREE.TorusGeometry(r, .08, 6, 200), hot(i ? GOLD : ACCENT, 2));
     t.position.y = 46 + i * 16;
     t.rotation.x = Math.PI / 2 + (i ? .14 : -.1);
+    t.userData.dynamic = true;
     g.add(t);
     return t;
   });
@@ -160,6 +161,7 @@ function buildTurbine(d) {
   lip.position.z = 3.9;
   comp.add(lip);
   const wheel = new THREE.Group();
+  wheel.userData.dynamic = true;
   wheel.position.z = .2;
   comp.add(wheel);
   const imp = impeller();
@@ -218,7 +220,7 @@ function buildTurbine(d) {
     const p = curve.getPointAt(t);
     box(scene, p.x, p.z, .8, p.y - 1, .8, darkMat);
   }
-  const packets = [0, 1, 2, 3, 4, 5, 6, 7].map(() => { const m = new THREE.Mesh(new THREE.SphereGeometry(.6, 10, 8), hot(GOLD, 3.6)); scene.add(m); return m; });
+  const packets = [0, 1, 2, 3, 4, 5, 6, 7].map(() => { const m = new THREE.Mesh(new THREE.SphereGeometry(.6, 10, 8), hot(GOLD, 3.6)); m.userData.dynamic = true; scene.add(m); return m; });
   powerLine = [start, end];
 
   anim.push((t, dt) => {
@@ -246,6 +248,7 @@ function buildLabs(d) {
     g.add(dome);
     const holo = new THREE.Mesh(new THREE.OctahedronGeometry(1.5, 0), new THREE.MeshBasicMaterial({ color: ACCENT.clone().multiplyScalar(2.4), wireframe: true }));
     holo.position.set(x, 4.5, z);
+    holo.userData.dynamic = true;
     g.add(holo);
     holos.push([holo, i]);
   }
@@ -270,8 +273,10 @@ function buildFoundry(d) {
   const trolley = box(g, X, 0, 3, 1.6, 10, darkMat, 21.5);
   const cable = box(g, X, 0, .12, 10, .12, hot('#ffffff', 1.4), 11.5);
   const crate = box(g, X, 0, 6, 2.8, 2.8, hot(ACCENT, 1.3), 9);
+  [trolley, cable, crate].forEach(m => { m.userData.dynamic = true; });
   const arm = new THREE.Group();
   arm.position.set(-6, 10, 20);
+  arm.userData.dynamic = true;
   g.add(arm);
   arm.add(new THREE.Mesh(new THREE.CylinderGeometry(1.6, 2, 1.6, 16), darkMat));
   const shoulder = new THREE.Group();
@@ -313,7 +318,7 @@ function buildBeacon(d) {
   [[-3, -3], [3, -3], [-3, 3], [3, 3]].forEach(([x, z]) => box(g, x, z, .9, 8, .9, darkMat, 44));
   box(g, 0, 0, 7.4, .8, 7.4, darkMat, 44);
   box(g, 0, 0, 7.4, .8, 7.4, darkMat, 51.2);
-  const fire = box(g, 0, 0, 5.4, 6, 5.4, hot(ACCENT, 3.2), 45);
+  const fire = box(g, 0, 0, 5.4, 6, 5.4, hot(ACCENT, 3.2).clone(), 45);
   roof(g, 0, 52, 0, 8.4, 5);
   const jewel = new THREE.Mesh(new THREE.SphereGeometry(1.3, 20, 14), hot(GOLD, 3));
   jewel.position.y = 58.2;
@@ -352,6 +357,7 @@ function buildStack(d) {
   g.add(scanner);
   const edge = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(30, 30)), new THREE.LineBasicMaterial({ color: ACCENT.clone().multiplyScalar(2.5) }));
   edge.rotation.x = -Math.PI / 2;
+  edge.userData.dynamic = true;
   g.add(edge);
   for (let z = 22; z < 68; z += 4.2) torii(scene, 16, z, 4.4, 6.5);
   anim.push(t => { scanner.position.y = edge.position.y = 2 + (Math.sin(t * .7) * .5 + .5) * 32; });
@@ -420,7 +426,7 @@ function buildUplink(d) {
   beam.position.y = 88 + 350;
   g.add(beam);
   const pk = new V3();
-  const packets = [0, 1, 2, 3, 4, 5, 6, 7].map(() => { const m = new THREE.Mesh(new THREE.SphereGeometry(.5, 10, 8), hot(GOLD, 4)); g.add(m); return m; });
+  const packets = [0, 1, 2, 3, 4, 5, 6, 7].map(() => { const m = new THREE.Mesh(new THREE.SphereGeometry(.5, 10, 8), hot(GOLD, 4)); m.userData.dynamic = true; g.add(m); return m; });
   anim.push(t => packets.forEach((m, i) => {
     const s = (t * .045 + i / packets.length) % 1.4;
     if (s < 1) m.position.copy(helix.getPoint(s, pk));

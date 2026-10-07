@@ -23,7 +23,6 @@ export const anim = [];
 
 /* ---------- renderer, scene, post ---------- */
 export const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('city'), antialias: false, powerPreference: 'high-performance' });
-renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.25 : 1.75));
 renderer.setSize(innerWidth, innerHeight);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1;
@@ -43,15 +42,54 @@ labelRenderer.setSize(innerWidth, innerHeight);
 
 export const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
-composer.addPass(new UnrealBloomPass(new V2(innerWidth, innerHeight), 0.8, 0.5, 0.42));
+const bloom = new UnrealBloomPass(new V2(innerWidth, innerHeight), 0.8, 0.5, 0.42);
+composer.addPass(bloom);
 composer.addPass(new OutputPass());
 
+/* ---------- adaptive quality ---------- */
+// Tiers trade resolution and bloom for frame rate. Phones start one tier down; any device
+// that can't hold ~45 fps steps down further (never back up, to avoid flicker).
+const TIERS = [
+  { dpr: 1.75, bloom: 1 },
+  { dpr: 1.25, bloom: .5 },
+  { dpr: 1, bloom: 0 },
+  { dpr: .75, bloom: 0 },
+];
+let tier = mobile ? 1 : 0;
+const bloomSetSize = bloom.setSize.bind(bloom);
+bloom.setSize = (w, h) => {
+  const k = TIERS[tier].bloom || .5;
+  bloomSetSize(Math.max(1, Math.round(w * k)), Math.max(1, Math.round(h * k)));
+};
+
 export function resize() {
+  const dpr = Math.min(devicePixelRatio, TIERS[tier].dpr);
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
+  renderer.setPixelRatio(dpr);
   renderer.setSize(innerWidth, innerHeight);
+  composer.setPixelRatio(dpr);
   composer.setSize(innerWidth, innerHeight);
   labelRenderer.setSize(innerWidth, innerHeight);
+}
+resize();
+
+export function render() {
+  if (TIERS[tier].bloom) composer.render();
+  else renderer.render(scene, camera);
+}
+
+let acc = 0, frames = 0, warmup = 1.5;
+export function adapt(dt) {
+  if ((warmup -= dt) > 0 || tier === TIERS.length - 1 || document.hidden) return;
+  acc += dt;
+  if (++frames < 90) return;
+  if (acc / frames > 1 / 45) {
+    tier++;
+    resize();
+    warmup = 1.5;
+  }
+  acc = frames = 0;
 }
 
 /* ---------- materials ---------- */
@@ -121,7 +159,13 @@ export const marble = worldPatch(new THREE.MeshStandardMaterial({ color: '#77726
 export const darkMat = new THREE.MeshStandardMaterial({ color: '#0d0c12', roughness: .6, metalness: .5 });
 export const roofMat = new THREE.MeshStandardMaterial({ color: '#16131c', roughness: .42, metalness: .75, side: THREE.DoubleSide });
 export const lacquer = new THREE.MeshStandardMaterial({ color: '#c8341f', emissive: '#c8341f', emissiveIntensity: .6, roughness: .35 });
-export const hot = (c = ACCENT, k = 3) => new THREE.MeshBasicMaterial({ color: new THREE.Color(c).multiplyScalar(k) });
+// Shared per colour and intensity, so merged geometry can batch them (clone before animating one).
+const hotCache = new Map();
+export const hot = (c = ACCENT, k = 3) => {
+  const key = new THREE.Color(c).getHexString() + k;
+  if (!hotCache.has(key)) hotCache.set(key, new THREE.MeshBasicMaterial({ color: new THREE.Color(c).multiplyScalar(k) }));
+  return hotCache.get(key);
+};
 export const glow = (o = 1, c = ACCENT) => new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: o, blending: THREE.AdditiveBlending, depthWrite: false });
 
 /* ---------- shared geometry + builders ---------- */

@@ -1,4 +1,5 @@
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import {
   THREE, V3, V2, ACCENT, GOLD, anim, renderer,
   marble, darkMat, hot, ROOF, box, column, torii, group,
@@ -107,7 +108,12 @@ const tailMat = hot(ACCENT, 2.2);
 const sillMat = hot(GOLD, 1.5);
 const rimMat = hot('#dfe6ff', 1.6);
 const TIRE = new THREE.CylinderGeometry(1, 1, .28, 28).rotateX(Math.PI / 2);
-const RIM = new THREE.TorusGeometry(.74, .035, 6, 36);
+// Rim ring plus two spokes as one geometry (unit wheel radius): one draw call per wheel face.
+const RIM = mergeGeometries([
+  new THREE.TorusGeometry(.74, .035, 6, 36).toNonIndexed(),
+  new THREE.BoxGeometry(1.4, .13, .05).toNonIndexed(),
+  new THREE.BoxGeometry(1.4, .13, .05).rotateZ(Math.PI / 2).toNonIndexed(),
+].map(g => { g.deleteAttribute('uv'); return g; }));
 const LAMP = new THREE.CylinderGeometry(.11, .11, .05, 18).rotateZ(Math.PI / 2);
 
 function makeCar(spec, paint) {
@@ -135,11 +141,6 @@ function makeCar(spec, paint) {
     rim.scale.setScalar(r);
     rim.position.z = sz * (W / 2 - .01);
     w.add(rim);
-    for (const rot of [0, Math.PI / 2]) { // spokes make the wheel spin readable
-      const sp = box(w, 0, sz * (W / 2 - .01), r * 1.4, .05, .02, rimMat, -.025);
-      sp.position.y = 0;
-      sp.rotation.z = rot;
-    }
     wheels.push(w);
   }
   car.userData.wheels = wheels;
@@ -242,6 +243,7 @@ export function buildCircus(d) {
       const c = makeCar(CARS[type], paint);
       c.scale.setScalar(CAR_SCALE);
       c.rotation.order = 'YZX';
+      c.userData.dynamic = true;
       g.add(c);
       return Object.assign(createDriver(type, i * 27), { c });
     });
