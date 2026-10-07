@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Michael Tranchino · Software Engineer</title>
+<meta name="description" content="Michael Tranchino, software engineer. Full stack systems for engineering and industry, told as a Roman and Japanese sci-fi city.">
+<meta name="theme-color" content="#070812">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Michael Tranchino · Software Engineer">
+<meta property="og:description" content="Full stack systems for engineering and industry, told as a Roman and Japanese sci-fi city.">
+<meta property="og:image" content="https://m-0ne-million.github.io/michael-tranchino-portfolio/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600&display=swap" rel="stylesheet">
+<script>history.scrollRestoration = 'manual';</script>
+<script type="module" src="./src/main.js"></script>
+</head>
+<body>
+<div id="loader" role="status"><div><p data-i18n="loader">Building the city</p><i></i></div></div>
+<canvas id="city" aria-hidden="true"></canvas>
+<div id="labels" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="hanko" href="#hero" data-i18n-aria="nav.top" aria-label="Back to top">MT</a>
+  <div class="top-right">
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-set-lang="it" aria-pressed="false">IT</button>
+      <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+    </div>
+    <a class="btn" href="#uplink" data-i18n="cta.contact">Contact</a>
+  </div>
+</header>
+<nav class="rail" aria-label="Districts"></nav>
+
+<main id="tour">
+  <section id="hero" class="stop hero" data-name="Skyline">
+    <p class="kana" lang="ja" aria-hidden="true">マイケル・トランキーノ</p>
+    <div>
+      <h1><span class="line">Michael</span><span class="line">Tranchino</span></h1>
+      <p class="sub" data-i18n="hero.sub">Software engineer. I design and ship full stack systems for engineering and industry. This is my city.</p>
+      <div class="ctas">
+        <a class="btn primary" href="#core" data-i18n="cta.enter">Enter the city</a>
+        <a class="btn" href="#uplink" data-i18n="cta.contact">Contact</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="core" class="stop" data-name="Core">
+    <article class="panel">
+      <h2>Core <span class="kj" lang="ja">中心</span></h2>
+      <p class="meta" data-i18n="core.meta">About</p>
+      <p data-i18n="core.p1">Software engineer specialised in full stack web and mobile applications. I work across .NET, Angular and Spring Boot, designing scalable, high performance solutions.</p>
+      <p data-i18n="core.p2">I have run the technical side of a startup, built backend services and REST integrations, automated business processes, and now build software that supports engineering teams in a structured industrial context.</p>
+    </article>
+  </section>
+
+  <section id="turbine" class="stop" data-name="Turbine">
+    <article class="panel wide">
+      <h2>Turbine <span class="kj" lang="ja">動力</span></h2>
+      <p class="meta" data-i18n="aq.meta">Engee Software · Contractor for Baker Hughes · Feb 2026 to now</p>
+      <ul class="facts">
+        <li data-i18n="aq.1">Full stack apps in .NET and Angular, wired to backend services</li>
+        <li data-i18n="aq.2">REST APIs in Spring Boot on top of corporate databases</li>
+        <li data-i18n="aq.3">Web tools supporting engineering and industrial processes</li>
+        <li data-i18n="aq.4">CI/CD with Azure Pipelines and GitHub Actions, Docker</li>
+        <li data-i18n="aq.5">Python for automation, data processing and AI/OCR</li>
+        <li data-i18n="aq.6">CAD/CAE data integration with NX 2206 and Simcenter</li>
+        <li data-i18n="aq.7">Excel VBA automation for DOE reporting</li>
+        <li data-i18n="aq.8">Business software migration: HR and ERP for management control</li>
+      </ul>
+    </article>
+  </section>
+
+  <section id="labs" class="stop" data-name="Labs">
+    <article class="panel wide">
+      <h2>Labs <span class="kj" lang="ja">工房</span></h2>
+      <p class="meta" data-i18n="of.meta">Selected projects</p>
+      <div class="projects">
+        <article><h3 data-i18n="of.1t">Canteen AI/OCR</h3><p data-i18n="of.1">Reads handwritten forms and checks booking, payment and data correctness for the company canteen, automatically.</p></article>
+        <article><h3 data-i18n="of.2t">Impeller viewer</h3><p data-i18n="of.2">Desktop app that renders industrial impellers as point clouds with technical data. The compressor wheel spinning inside the Turbine is a nod to it.</p></article>
+        <article><h3 data-i18n="of.3t">Webhook backend</h3><p data-i18n="of.3">REST backend integrating databases and external services, with configurable webhooks.</p></article>
+        <article><h3 data-i18n="of.4t">Ops automation</h3><p data-i18n="of.4">Python and Excel VBA tools that remove manual, repetitive work.</p></article>
+        <article><h3 data-i18n="of.5t">ERP migration</h3><p data-i18n="of.5">Migration of business management software focused on HR and management control.</p></article>
+      </div>
+    </article>
+  </section>
+
+  <section id="foundry" class="stop" data-name="Foundry">
+    <article class="panel wide">
+      <h2>Foundry <span class="kj" lang="ja">工場</span></h2>
+      <p class="meta" data-i18n="fa.meta">XAutomation · Full stack developer for EUROFORK · Sep 2025 to Feb 2026</p>
+      <ul class="facts">
+        <li data-i18n="fa.1">Web, mobile and desktop apps with .NET MAUI, Blazor and Flutter</li>
+        <li data-i18n="fa.2">Backends and REST APIs in .NET, integrated with databases</li>
+        <li data-i18n="fa.3">Full stack C# with Blazor Server and WebAssembly</li>
+        <li data-i18n="fa.4">VBA tools for Excel and Access: data analysis and reporting</li>
+        <li data-i18n="fa.5">Whole lifecycle: requirements, testing, debugging, Git, deploy</li>
+      </ul>
+      <p class="note" data-i18n="fa.note">First shift on record: PLC programming at RLS Sistemi, Prato, 2023.</p>
+    </article>
+  </section>
+
+  <section id="beacon" class="stop" data-name="Beacon">
+    <article class="panel wide">
+      <h2>Beacon <span class="kj" lang="ja">灯台</span></h2>
+      <p class="meta" data-i18n="ph.meta">Guardians · IT Manager &amp; COO · Jan to Jun 2025</p>
+      <p data-i18n="ph.p">A startup building a safety bracelet that sends your location to chosen contacts with one press or a voice command, phone not needed.</p>
+      <div class="stats">
+        <div><b>Top 10</b><span data-i18n="ph.s1">Italian mini-enterprises, nationwide</span></div>
+        <div><b>6</b><span data-i18n="ph.s2">people on the team I led</span></div>
+        <div><b>Bergamo</b><span data-i18n="ph.s3">public pitch to investors and media</span></div>
+      </div>
+      <ul class="facts">
+        <li data-i18n="ph.1">REST APIs for secure data and real-time notifications</li>
+        <li data-i18n="ph.2">Privacy and security aligned with the Italian Data Protection Authority</li>
+        <li data-i18n="ph.3">Processes, tech standards and scalability for a growing startup</li>
+        <li data-i18n="ph.4">Multidisciplinary team coordination and delivery</li>
+      </ul>
+    </article>
+  </section>
+
+  <section id="stack" class="stop" data-name="Stack">
+    <article class="panel wide">
+      <h2>Stack <span class="kj" lang="ja">技術</span></h2>
+      <p class="meta" data-i18n="po.meta">Every column is something I ship with</p>
+      <div class="chips">
+        <div><h3 data-i18n="po.build">Build</h3><ul><li class="hot">.NET</li><li class="hot">C#</li><li class="hot">Angular</li><li class="hot">Spring Boot</li><li>Blazor</li><li>.NET MAUI</li><li>React</li><li>React Native</li><li>Expo</li><li>Flutter</li><li>Java</li><li>Node.js</li><li>Express</li><li>JavaScript</li></ul></div>
+        <div><h3 data-i18n="po.data">Data and AI</h3><ul><li class="hot">Python</li><li>Flask</li><li>Pandas</li><li>NumPy</li><li>OCR</li><li>PostgreSQL</li><li>MySQL</li><li>SQL</li></ul></div>
+        <div><h3 data-i18n="po.int">Integrate</h3><ul><li>REST</li><li>Webhooks</li><li>Microsoft OAuth2</li><li>Swagger / OpenAPI</li><li>Postman</li></ul></div>
+        <div><h3 data-i18n="po.ship">Ship</h3><ul><li class="hot">Docker</li><li>GitHub Actions</li><li>Azure DevOps</li><li>Git</li><li>Linux</li><li>Excel VBA</li></ul></div>
+      </div>
+    </article>
+  </section>
+
+  <section id="academy" class="stop" data-name="Academy">
+    <article class="panel">
+      <h2>Academy <span class="kj" lang="ja">学舎</span></h2>
+      <p class="meta" data-i18n="pa.meta">I.T.T.S. Silvano Fedi - Enrico Fermi, Pistoia · 2020 to 2025</p>
+      <p data-i18n="pa.p">Diploma in Computer Science, EQF level 4.</p>
+      <div class="langs">
+        <div><b>IT</b><span data-i18n="pa.it">Native</span></div>
+        <div><b>EN</b><span data-i18n-html="pa.en">C1 listening, reading, speaking<br>B2 writing</span></div>
+      </div>
+    </article>
+  </section>
+
+  <section id="circuit" class="stop" data-name="Circuit">
+    <article class="panel">
+      <h2>Circuit <span class="kj" lang="ja">車</span></h2>
+      <p class="meta" data-i18n="ci.meta">Off the clock</p>
+      <p data-i18n="ci.p">Cars are the other thing I can talk about for hours: German grand tourers like the Mercedes CLS and S-Class or the BMW 5 and 6 Series, and icons like Lamborghini and Porsche.</p>
+      <ul class="telemetry" aria-label="Live telemetry">
+        <li data-car="lambo"><span data-i18n="car.lambo">Wedge supercar</span><b>0</b><i>km/h</i><em>0.00 g</em><small></small></li>
+        <li data-car="nine"><span data-i18n="car.nine">Rear-engine sports car</span><b>0</b><i>km/h</i><em>0.00 g</em><small></small></li>
+        <li data-car="six"><span data-i18n="car.six">Grand tourer coupe</span><b>0</b><i>km/h</i><em>0.00 g</em><small></small></li>
+        <li data-car="cls"><span data-i18n="car.cls">Four-door coupe</span><b>0</b><i>km/h</i><em>0.00 g</em><small></small></li>
+        <li data-car="sclass"><span data-i18n="car.sclass">Flagship limousine</span><b>0</b><i>km/h</i><em>0.00 g</em><small></small></li>
+        <li data-car="five"><span data-i18n="car.five">Executive sport sedan</span><b>0</b><i>km/h</i><em>0.00 g</em><small></small></li>
+      </ul>
+      <p class="note" data-i18n="ci.note">Live telemetry. Six cars share the track, each with its own mass, power, grip, drag and downforce. Tyre grip sets the corner speed: they brake at the limit, take the racing line, attack on the free side, and the rear-drive cars power-slide out of the turns. The circuit is a 1:2.4 model.</p>
+    </article>
+  </section>
+
+  <section id="uplink" class="stop uplink" data-name="Uplink">
+    <article class="panel wide">
+      <h2 data-i18n="co.h">Let's build something.</h2>
+      <p class="meta" data-i18n="co.meta">Uplink · open channel</p>
+      <p data-i18n="co.p">Open to full stack, backend and industrial software roles.</p>
+      <div class="ctas">
+        <a class="btn primary" href="mailto:michaeltranchino@gmail.com">michaeltranchino@gmail.com</a>
+        <a class="btn" href="https://www.linkedin.com/in/michael-tranchino-86330a2ab/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/M-0ne-Million" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </article>
+  </section>
+</main>
+<footer>© 2026 Michael Tranchino</footer>
+</body>
+</html>
